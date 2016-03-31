@@ -11,7 +11,8 @@ It will also show which are modified by the library and which are not so that yo
 ``` cmd
  java -jar docHeaderGenerator.jar <path_to_your_project_root> <path_to_header_file> <fileType> <fileType> ...
 ``` 
-
+ Make sure JAVA_HOME is setup on your classpath to execute this.
+ 
 #####Examples
 ``` cmd
  java -jar docHeaderGenerator.jar ./usr/vijet/projects/HelloWorld /usr/licenses/apache_license.txt *.* 
@@ -28,7 +29,7 @@ This modifies all the .java files that are present in the *./usr/vijet/projects/
 This modifies all the .java and .xml files that are present in the *./usr/vijet/projects/HelloWorld* folder having any file extension.
 
 
-NOTE:
+** NOTE:
 * The first 3 arguments are mandatory(projectpath, header_file_path, file_format). Atleast one file format has to be specified.
 * Its a good practice to keep a copy of your source code before using this library. If somethings goes wrong, its better to fallback to the earlier version.
 
