@@ -16,14 +16,14 @@ public class HeaderFileAppender {
 	private final HeaderText headerText;
 	private final AcceptedFileFormats accptdFileFormats;
 	private final File sourceFolder;
-	
+
 	public HeaderFileAppender(String sourceFolderName, HeaderText headerText,AcceptedFileFormats fileFormats) throws IOException {
 		this.headerText = headerText;
 		this.accptdFileFormats = fileFormats;
 		sourceFolder = new File(sourceFolderName);
 		updateFiles(sourceFolder);
 	}
-	
+
 	private void updateFiles(File sourceFolder) throws IOException{
 		if(sourceFolder.isDirectory()){
 			File[] fileList = sourceFolder.listFiles();
@@ -36,16 +36,16 @@ public class HeaderFileAppender {
 			updateHeaderForFile(sourceFolder);
 		}
 	}
-	
+
 	private void updateHeaderForFile(File sourceFile) throws IOException{
 		if(!accptdFileFormats.isHeaderShouldBeAppeneded(sourceFile.getName())){
 			System.out.println(sourceFile.getCanonicalPath()+" is not Modified!!!");
 			return;
 		}
-		
+
 		StringBuilder originalFileName = new StringBuilder(sourceFile.getName());
 		File backUpFile = new File(sourceFile.getParentFile().getPath()+"/temp_"+originalFileName);
-		
+
 		try{
 			Files.copy(Paths.get(sourceFile.getPath()), Paths.get(backUpFile.getPath()), StandardCopyOption.COPY_ATTRIBUTES);
 		}catch(IOException e){
@@ -54,7 +54,7 @@ public class HeaderFileAppender {
 			}
 			System.out.println(sourceFile.getCanonicalPath()+" is not Modified!!!");
 		}
-		
+
 		try{
 			StringBuilder fileContents = new StringBuilder();
 			fileContents.append(headerText.getHeaderText());
@@ -79,5 +79,5 @@ public class HeaderFileAppender {
 			System.out.println(backUpFile.getCanonicalPath()+" is not Modified!!!");
 		}
 	}
-	
+
 }
