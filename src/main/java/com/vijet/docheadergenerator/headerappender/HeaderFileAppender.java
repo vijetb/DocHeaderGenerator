@@ -11,7 +11,13 @@ import java.nio.file.StandardCopyOption;
 
 import com.vijet.docheadergenerator.fileformat.AcceptedFileFormats;
 import com.vijet.docheadergenerator.header.HeaderText;
+import com.vijet.docheadergenerator.util.Constants;
 
+/**
+ * Class that iterates over all the files from the project root folder and 
+ * adds the header to each of the qualified files. 
+ * @author Vijet Badigannavar
+ */
 public class HeaderFileAppender {
 	private final HeaderText headerText;
 	private final AcceptedFileFormats accptdFileFormats;
@@ -24,6 +30,11 @@ public class HeaderFileAppender {
 		updateFiles(sourceFolder);
 	}
 
+	/**
+	 * Recursively iterate over each of the file and update them.
+	 * @param sourceFolder
+	 * @throws IOException
+	 */
 	private void updateFiles(File sourceFolder) throws IOException{
 		if(sourceFolder.isDirectory()){
 			File[] fileList = sourceFolder.listFiles();
@@ -37,9 +48,18 @@ public class HeaderFileAppender {
 		}
 	}
 
+	/**
+	 * This method checks if the file format of the current file is there in the acptdFileFormats and 
+	 * if it is then it will ignore the file.
+	 * If the current file is qualified for modification, then it will create a back up of that file
+	 * read the file and append the data and write it into the same file. If any errors araise during the 
+	 * course, then the backup file is renamed and the file is kept clean. 
+	 * @param sourceFile
+	 * @throws IOException
+	 */
 	private void updateHeaderForFile(File sourceFile) throws IOException{
 		if(!accptdFileFormats.isHeaderShouldBeAppeneded(sourceFile.getName())){
-			System.out.println(sourceFile.getCanonicalPath()+" is not Modified!!!");
+			System.out.println(sourceFile.getCanonicalPath()+Constants.FILE_NOT_MODIFIED);
 			return;
 		}
 
@@ -52,7 +72,7 @@ public class HeaderFileAppender {
 			if(backUpFile.exists()){
 				backUpFile.delete();
 			}
-			System.out.println(sourceFile.getCanonicalPath()+" is not Modified!!!");
+			System.out.println(sourceFile.getCanonicalPath()+ Constants.FILE_NOT_MODIFIED);
 		}
 
 		try{
@@ -72,11 +92,11 @@ public class HeaderFileAppender {
 			writer.flush();
 			writer.close();
 			backUpFile.delete();
-			System.out.println(sourceFile.getCanonicalPath()+" is Modified!!!");
+			System.out.println(sourceFile.getCanonicalPath()+Constants.FILE_MODIFIED);
 		}catch(IOException e){
 			e.printStackTrace();
 			backUpFile.renameTo(sourceFile);
-			System.out.println(backUpFile.getCanonicalPath()+" is not Modified!!!");
+			System.out.println(backUpFile.getCanonicalPath()+Constants.FILE_NOT_MODIFIED);
 		}
 	}
 

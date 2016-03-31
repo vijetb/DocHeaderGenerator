@@ -1,9 +1,11 @@
 package com.vijet.docheadergenerator.exception;
 
+/**
+ * Runtime exception thrown when the number of arguments are less than the 3
+ * @author Vijet Badigannavar
+ */
 public class InvalidSourceFolderException extends RuntimeException{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	public InvalidSourceFolderException()
