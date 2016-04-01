@@ -43,7 +43,7 @@
 					<appendAssemblyId>false</appendAssemblyId>
 					<archive>
 						<manifest>
-							<mainClass>com.vijet.docheadergenerator.App</mainClass>
+							<mainClass>com.vijet.docheadergenerator.DocHeaderGeneratorStartUp</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

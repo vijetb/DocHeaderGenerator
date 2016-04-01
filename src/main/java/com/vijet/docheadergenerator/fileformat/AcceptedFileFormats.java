@@ -37,7 +37,7 @@ public class AcceptedFileFormats {
 	 * @return true if the file has to be modified. False otherwise.
 	 */
 	public boolean isHeaderShouldBeAppeneded(final String fileName){
-		return isFileShouldBeAddedWithHeader || validFormat.contains(fileName.split("\\.")[1]);
+		return isFileShouldBeAddedWithHeader || (validFormat.contains("\\.") && validFormat.contains(fileName.split("\\.")[1]));
 	}
 
 }
